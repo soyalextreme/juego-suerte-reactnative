@@ -1,7 +1,8 @@
 import React from "react";
 import { View, StyleSheet } from "react-native";
+import Colors from "../constants/colors";
 
-const Card = (props) => {
+const Card = props => {
   return (
     <View style={{ ...style.card, ...props.style }}>{props.children}</View>
   );
@@ -21,7 +22,9 @@ const style = StyleSheet.create({
     padding: 20,
     borderRadius: 10,
     // elevation is for android
-    elevation: 2
+    elevation: 2,
+    borderWidth: 3,
+    borderColor: Colors.secondary
   }
 });
 

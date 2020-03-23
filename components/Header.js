@@ -4,10 +4,11 @@ import { View, Text, StyleSheet } from "react-native";
 //constant
 import Colors from "../constants/colors";
 
-const header = (props) => {
+const header = props => {
   return (
     <View style={styles.header}>
       <Text style={styles.headerTitle}>{props.title}</Text>
+      <Text style={{ ...styles.subtitleFont }}>{props.subtitle}</Text>
     </View>
   );
 };
@@ -22,7 +23,11 @@ const styles = StyleSheet.create({
   },
   headerTitle: {
     color: "black",
-    fontSize: 18
+    fontSize: 18,
+    fontFamily: "Raleway-Bold"
+  },
+  subtitleFont: {
+    fontFamily: "Raleway-Medium"
   }
 });
 

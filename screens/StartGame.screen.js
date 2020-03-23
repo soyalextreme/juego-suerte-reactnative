@@ -1,21 +1,30 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, Button, Alert, Keyboard } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Button,
+  Alert,
+  Keyboard,
+  Image
+} from "react-native";
 
 // own components
 import Card from "../components/Card";
 import Input from "../components/Input";
 // constants styles
 import Colors from "../constants/colors";
+import ButtonSecondary from "../components/ButtonSecondary";
 
-const StartGameScreem = (props) => {
+const StartGameScreem = props => {
   // STATE
   const [enteredValue, setEnteredValue] = useState("");
   const [confirm, setConfirm] = useState(false);
   const [selectedNumber, setSelectedNumber] = useState();
 
-  const numberInputHandler = (inputText) => {
+  const numberInputHandler = inputText => {
     setEnteredValue(inputText.replace(/[^0-9]/, ""));
-    console.log(enteredValue);
+    //console.log(enteredValue);
     //console.log("cambiand el estado");
   };
 
@@ -71,9 +80,13 @@ const StartGameScreem = (props) => {
 
   return (
     <View style={styles.screen}>
-      <Text style={styles.title}>Nueva Partida!!</Text>
+      <Text style={{ ...styles.title, color: Colors.secondary, marginTop: 50 }}>
+        Nueva Partida!!
+      </Text>
       <Card style={styles.inputContainer}>
-        <Text> Selecciona un Número</Text>
+        <Text style={{ fontFamily: "RobotoMono-Thin" }}>
+          Selecciona un Número
+        </Text>
         <Input
           blurOnSubmit
           autoCapialize="none"
@@ -83,26 +96,39 @@ const StartGameScreem = (props) => {
           style={styles.input}
           onChangeText={numberInputHandler}
           value={enteredValue}
+          style={{ ...styles.fontButton }}
         />
         <View style={styles.btnContainer}>
           <View style={styles.button}>
-            <Button
-              color={Colors.primary}
-              title="Borrar"
-              onPress={() => {
-                resetInputHandler();
-              }}
-            />
+            <ButtonSecondary onPress={resetInputHandler}>
+              Borrar
+            </ButtonSecondary>
           </View>
-          <View style={Colors.secondary}>
-            <Button
-              title="Confirmar"
+          <View style={{ ...Colors.secondary, ...styles.button }}>
+            <ButtonSecondary
               onPress={confirmInputHandler}
               color={Colors.secondary}
-            />
+              style={{ backgroundColor: Colors.primary }}
+            >
+              Aceptar
+            </ButtonSecondary>
           </View>
         </View>
       </Card>
+      <View style={{ ...styles.imageWinContainer }}>
+        <Image
+          source={require("../assets/images/original.png")}
+          style={{ ...styles.image }}
+          resizeMode="contain"
+        />
+        {/* <View>
+                <Image
+                  source={{
+                    uri:
+                      "https://i.ibb.co/yn2jcx6/montana-cubierta-nieve-sobre-nivel-nube-bandera-roja-cima-montana-cielo-azul-33800-188.jpg"
+                  }}
+                /> */}
+      </View>
       {confirmPopper}
     </View>
   );
@@ -112,7 +138,8 @@ const styles = StyleSheet.create({
   screen: {
     flex: 1,
     padding: 10,
-    alignItems: "center"
+    alignItems: "center",
+    backgroundColor: "black"
   },
   btnContainer: {
     flexDirection: "row",
@@ -123,14 +150,16 @@ const styles = StyleSheet.create({
   inputContainer: {
     width: 300,
     maxWidth: "80%",
-    alignItems: "center"
+    alignItems: "center",
+    marginTop: 50
   },
   title: {
     fontSize: 20,
-    marginVertical: 10
+    marginVertical: 10,
+    fontFamily: "Raleway-Medium"
   },
   button: {
-    width: 100
+    width: "45%"
   },
   input: {
     width: 50,
@@ -143,6 +172,21 @@ const styles = StyleSheet.create({
   },
   font: {
     textAlign: "center"
+  },
+  fontButton: {
+    fontFamily: "Raleway-Medium",
+    fontSize: 80,
+    color: Colors.primary,
+    height: 80
+  },
+  image: {
+    alignSelf: "center",
+    width: "200%",
+    height: 700,
+    borderRadius: 300
+  },
+  imageWinContainer: {
+    width: "100%"
   }
 });
 

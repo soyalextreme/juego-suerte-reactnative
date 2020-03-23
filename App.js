@@ -1,6 +1,8 @@
 // modules
 import React, { useState } from "react";
 import { StyleSheet, View } from "react-native";
+import * as Font from "expo-font";
+import { AppLoading } from "expo";
 
 // components
 import Header from "./components/Header";
@@ -9,10 +11,31 @@ import Header from "./components/Header";
 import StartGameScreen from "./screens/StartGame.screen";
 import GameScreen from "./screens/Game.screen";
 
+const fetchFonts = () => {
+  // alows to load fonts
+  return Font.loadAsync({
+    "RobotoMono-Thin": require("./assets/fonts/RobotoMono-Thin.ttf"),
+    "Raleway-Bold": require("./assets/fonts/Raleway-Bold.ttf"),
+    "Raleway-Medium": require("./assets/fonts/Raleway-Medium.ttf")
+  });
+};
+
 export default function App() {
   const [numberUser, setNumberUser] = useState();
+  const [dataLoaded, setDataLoaded] = useState(false);
 
-  const changeGameHandler = (number) => {
+  if (!dataLoaded) {
+    return (
+      <AppLoading
+        startAsync={fetchFonts}
+        /* needs to be a function with a promise return*/
+        onFinish={() => setDataLoaded(true)}
+        onError={err => console.error(err)}
+      />
+    );
+  }
+
+  const changeGameHandler = number => {
     if (!numberUser) {
       return setNumberUser(number);
     } else {
@@ -30,7 +53,7 @@ export default function App() {
 
   return (
     <View style={styles.screen}>
-      <Header title="Adivina un número" />
+      <Header title="Adivina un número" subtitle={"y te dire tu suerte..."} />
       {content}
     </View>
   );
